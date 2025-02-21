@@ -1,5 +1,9 @@
 {
     "terminal.integrated.defaultProfile.linux": "zsh",
     "git.enableCommitSigning": true,
-    "python.terminal.activateEnvironment": true
+    "python.terminal.activateEnvironment": true,
+    "markdownlint.config": {
+        "no-inline-html": false,
+        "single-title": false
+    }
 }
