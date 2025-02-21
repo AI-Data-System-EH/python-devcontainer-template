@@ -1,6 +1,10 @@
 {
     "name": "Python3.12",
     "image": "ghcr.io/ai-data-system-eh/python-devcontainer:alpha",
+    // "build": {
+    //     "dockerfile": "Dockerfile"
+    // },
+
     "runArgs": [
         "--name",
         "${localEnv:USER}-${localWorkspaceFolderBasename}"
