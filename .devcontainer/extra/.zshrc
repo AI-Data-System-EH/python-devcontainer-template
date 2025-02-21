@@ -38,6 +38,7 @@ plugins=(
     zsh-history-substring-search # load after zsh-syntax-highlighting
     ######################################
     fzf
+    poetry
     ######################################
     auto-color-ls
     autoupdate
