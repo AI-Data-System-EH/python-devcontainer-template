@@ -1,14 +1,11 @@
 {
     "name": "Python3.12",
-    "image": "ghcr.io/ai-data-system-eh/python-devcontainer:alpha",
+    "image": "ghcr.io/ai-data-system-eh/python-devcontainer:latest",
     // "build": {
     //     "dockerfile": "Dockerfile"
     // },
 
-    "runArgs": [
-        "--name",
-        "${localEnv:USER}-${localWorkspaceFolderBasename}"
-    ],
+    "runArgs": ["--name", "${localEnv:USER}-${localWorkspaceFolderBasename}"],
 
     "postCreateCommand": "poetry install",
 

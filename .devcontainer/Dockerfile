@@ -66,25 +66,25 @@ SHELL [ "/bin/zsh", "-c" ]
 ENV ZSH_CUSTOM=/home/${USER_NAME}/.oh-my-zsh/custom
 RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && \
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions && \
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting && \
-    git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting && \
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting && \
+    git clone https://github.com/zdharma-continuum/fast-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting && \
     git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-completions && \
     git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search && \
-    git clone https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k && \
+    git clone https://github.com/romkatv/powerlevel10k ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k && \
     git clone https://github.com/mattmc3/zsh-safe-rm ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-safe-rm && \
-    git clone https://github.com/fdellwing/zsh-bat.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-bat && \
+    git clone https://github.com/fdellwing/zsh-bat ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-bat && \
     git clone https://github.com/gretzky/auto-color-ls ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/auto-color-ls && \
     git clone https://github.com/TamCore/autoupdate-oh-my-zsh-plugins ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/autoupdate
 
 # Copy .zshrc and .p10k.zsh
-COPY extra/.zshrc /home/${USER_NAME}/.zshrc
-RUN sudo chown ${USER_NAME}:${USER_NAME} /home/${USER_NAME}/.zshrc
-COPY extra/.p10k.zsh /home/${USER_NAME}/.p10k.zsh
-RUN sudo chown ${USER_NAME}:${USER_NAME} /home/${USER_NAME}/.p10k.zsh
+RUN curl -fsSL https://raw.githubusercontent.com/AI-Data-system-EH/user-content/main/zsh/.zshrc -o ~/.zshrc \
+    && sudo chown ${USER_NAME}:${USER_NAME} ~/.zshrc
+RUN curl -fsSL https://raw.githubusercontent.com/AI-Data-system-EH/user-content/main/zsh/.p10k.zsh -o ~/.p10k.zsh \
+    && sudo chown ${USER_NAME}:${USER_NAME} ~/.p10k.zsh
 
 # Install fzf
-RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && \
-    ~/.fzf/install --all --no-fish
+RUN git clone --depth 1 https://github.com/junegunn/fzf ~/.fzf && \
+    ~/.fzf/install --all --no-fish --no-bash --no-update-rc
 
 # Install Ruby gem for colorls
 RUN sudo apt-get -y install --no-install-recommends ruby-dev && \
@@ -101,4 +101,4 @@ RUN mkdir -p ${ZSH_CUSTOM}/plugins/poetry && \
     poetry config virtualenvs.in-project true && \
     poetry config virtualenvs.path .venv
 
-CMD [ "/bin/zsh" ]
+ENTRYPOINT [ "/bin/zsh" ]
