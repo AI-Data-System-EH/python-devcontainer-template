@@ -1,10 +1,8 @@
 {
     "name": "Python3.12",
-    "image": "ghcr.io/ai-data-system-eh/python-devcontainer:alpha",
-    "runArgs": [
-        "--name",
-        "${localEnv:USER}-${localWorkspaceFolderBasename}"
-    ],
+    "image": "ghcr.io/ai-data-system-eh/python-devcontainer:latest",
+
+    "runArgs": ["--name", "${localEnv:USER}-${localWorkspaceFolderBasename}"],
 
     "postCreateCommand": "poetry install",
 
