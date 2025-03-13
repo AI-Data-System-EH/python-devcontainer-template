@@ -30,6 +30,16 @@ gh repo create --template https://github.com/AI-Data-System-EH/python-devcontain
 git clone https://github.com/AI-Data-System-EH/python-devcontainer-template your-repository-name
 ```
 
+> 복제한 리포지토리 폴더에서 기존 `.git` 폴더를 제거하고, 새로 git을 초기화하세요.
+>
+> :warning: git을 초기화하지 않으면, 지금 복제한 이 템플릿 리포지토리에 커밋하게 됩니다. 주의하세요!
+
+```bash
+cd <your-repository-name>
+rm -rf .git
+git init && git branch -M main
+```
+
 <br/>
 
 # Visual Studio Code에서 Devcontainer 프로젝트 열기
