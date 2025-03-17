@@ -1,14 +1,17 @@
 # Dockerfile for the devcontainer
 # Install
-#   - Python 3.12
+#   - Python 3.12 (https://hub.docker.com/_/python)
 #   - Oh My Zsh
 #   - Poetry
+
+# Build (Multi-arch)
+# docker buildx build --platform linux/amd64,linux/arm64 -t ghcr.io/ai-data-system-eh/python-devcontainer:latest -f .devcontainer/Dockerfile .
 
 FROM python:3.12-bullseye
 
 LABEL organization="ai-data-system-eh"
 LABEL description="Dockerfile for the devcontainer with Python 3.12"
-LABEL tag="alpha"
+LABEL tag="latest"
 
 # User configuration
 ARG USER_NAME=user
@@ -70,8 +73,8 @@ RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/inst
     git clone https://github.com/zdharma-continuum/fast-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting && \
     git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-completions && \
     git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search && \
-    git clone https://github.com/romkatv/powerlevel10k ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k && \
-    git clone https://github.com/mattmc3/zsh-safe-rm ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-safe-rm && \
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k && \
+    git clone --recursive --depth=1 https://github.com/mattmc3/zsh-safe-rm ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-safe-rm && \
     git clone https://github.com/fdellwing/zsh-bat ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-bat && \
     git clone https://github.com/gretzky/auto-color-ls ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/auto-color-ls && \
     git clone https://github.com/TamCore/autoupdate-oh-my-zsh-plugins ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/autoupdate
@@ -96,7 +99,7 @@ ENV PATH="/home/${USER_NAME}/.local/bin:${PATH}"
 
 # Configure Poetry
 RUN mkdir -p ${ZSH_CUSTOM}/plugins/poetry && \
-    poetry completions zsh >${ZSH_CUSTOM}/plugins/poetry/_poetry && \
+    poetry completions zsh > ${ZSH_CUSTOM}/plugins/poetry/_poetry && \
     poetry config virtualenvs.create true && \
     poetry config virtualenvs.in-project true && \
     poetry config virtualenvs.path .venv

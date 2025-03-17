@@ -1,20 +1,20 @@
 #:schema https://json.schemastore.org/pyproject
 
 [project]
-description = "Description of project"
-name = "my-package"
-dynamic = [ "version" ]
+description     = "Description of project"
+dynamic         = [ "version" ]
+name            = "my-package"
 requires-python = ">=3.12"
 
 [tool.poetry]
 package-mode = false
 
-[tool.poetry.group.utils.dependencies]
-pathlib = "^1.0.1"
+    [tool.poetry.group.utils.dependencies]
+    pathlib = "^1.0.1"
 
-[tool.poetry.group.dev.dependencies]
-ruff = "^0.9.7"
-pre-commit = "^4.1.0"
+    [tool.poetry.group.dev.dependencies]
+    pre-commit = "^4.1.0"
+    ruff       = "^0.9.7"
 
 
 [build-system]
