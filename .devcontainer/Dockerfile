@@ -28,7 +28,8 @@ ENV PYTHONUNBUFFERED=1
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Configure apt and install packages
-RUN apt-get update && apt-get -y install --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    software-properties-common \
     zsh \
     sudo \
     nano \
@@ -36,6 +37,11 @@ RUN apt-get update && apt-get -y install --no-install-recommends \
     locales \
     tzdata \
     net-tools
+
+# backports 추가 및 Git 설치
+RUN echo "deb http://deb.debian.org/debian bullseye-backports main" > /etc/apt/sources.list.d/backports.list \
+    && apt-get update \
+    && apt-get -t bullseye-backports install -y --no-install-recommends git
 
 RUN apt-get autoremove -y && apt-get clean
 
